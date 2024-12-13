@@ -74,15 +74,17 @@ nav a:focus-visible {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    padding: 30px;
-    margin-top: 1rem;
-    margin-left: 1rem;
+    padding: 10px;
+
+}
+
+.results-image-container:hover {
+    box-shadow: 0 6px 20px var(--card-hover-shadow);
 }
 
 .calculator-container:hover {
     box-shadow: 0 6px 20px var(--card-hover-shadow);
 }
-
 /* Calculator Container Header */
 .calculator-header {
     text-align: center;
@@ -309,6 +311,18 @@ html {
         margin-bottom: 1rem;
         margin-left: 1rem;
         margin-right: 1rem;
+    }
+
+    .ohms-law-diagram {
+        aspect-ratio: 1 / 1; /* Ensures square shape */
+        height: auto;
+        width: 100%;
+    }
+
+    .ohms-law-diagram img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
 
     .result-boxes .result-box {
