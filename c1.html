@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ohm's Law Calculator</title>
+    <link rel="stylesheet" href="c_styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="calculator.html">Calculators</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main">
+        <div class="ohms-law-container">
+            <div class="calculator-container">
+                <h2 class="calculator-header">Ohm's Law Calculator</h2>
+
+                <div class="input-group">
+                    <label for="voltage">Voltage:</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="voltage" name="voltage" placeholder="Enter">
+                        <select id="voltage-unit">
+                            <option value="V">V</option>
+                            <option value="mV">mV</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="current">Current:</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="current" name="current" placeholder="Enter">
+                        <select id="current-unit">
+                            <option value="A">A</option>
+                            <option value="mA">mA</option>
+                            <option value="µA">µA</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="resistance">Resistance:</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="resistance" name="resistance" placeholder="Enter">
+                        <select id="resistance-unit">
+                            <option value="Ω">Ω</option>
+                            <option value="KΩ">KΩ</option>
+                            <option value="MΩ">MΩ</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="power">Power:</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="power" name="power" placeholder="Enter">
+                        <select id="power-unit">
+                            <option value="W">W</option>
+                            <option value="mW">mW</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="error-message" class="error-message"></div>
+
+                <div class="button-container">
+                    <button id="calculate-btn" class="calculate-btn">Calculate</button>
+                    <button id="reset-btn" class="reset-btn">Reset</button>
+                </div>
+            </div>
+            
+            <div class="results-image-container">
+                <div class="ohms-law-diagram">
+                    <img src="images/Calc_index/c1m1.png" alt="Ohm's Law Circuit Diagram" />
+                    <div class="result-boxes">
+                        <div class="result-box" id="voltage-result-box">
+                            <span class="result-value" id="voltage-result">-</span>
+                        </div>
+                        <div class="result-box" id="current-result-box">
+                            <span class="result-value" id="current-result">-</span>
+                        </div>
+                        <div class="result-box" id="resistance-result-box">
+                            <span class="result-value" id="resistance-result">-</span>
+                        </div>
+                        <div class="result-box" id="power-result-box">
+                            <span class="result-value" id="power-result">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        © 2024 Breadboard Tutorials. All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const errorMessage = document.getElementById('error-message');
+
+            // Input fields
+            const voltageInput = document.getElementById('voltage');
+            const voltageUnit = document.getElementById('voltage-unit');
+            const currentInput = document.getElementById('current');
+            const currentUnit = document.getElementById('current-unit');
+            const resistanceInput = document.getElementById('resistance');
+            const resistanceUnit = document.getElementById('resistance-unit');
+            const powerInput = document.getElementById('power');
+            const powerUnit = document.getElementById('power-unit');
+
+            // Conversion factors
+            const unitConversions = {
+                voltage: { V: 1, mV: 0.001 },
+                current: { A: 1, mA: 0.001, 'µA': 0.000001 },
+                resistance: { 'Ω': 1, KΩ: 1000, MΩ: 1000000 },
+                power: { W: 1, mW: 0.001 }
+            };
+
+            // Function to convert value between units
+            function convertUnit(value, fromUnit, toUnit, type) {
+                if (value === null || value === '') return null;
+                const baseValue = value * unitConversions[type][fromUnit];
+                return baseValue / unitConversions[type][toUnit];
+            }
+
+            // Function to format number by removing unnecessary trailing zeros
+            function formatNumber(number, decimalPlaces = 3) {
+                return number !== null ? parseFloat(number.toFixed(decimalPlaces)).toString() : '';
+            }
+
+            // Add event listeners for unit changes
+            function addUnitChangeListener(input, unitSelect, type) {
+                unitSelect.addEventListener('change', function() {
+                    input.dataset.originalValue = input.value;
+                    input.dataset.originalUnit = unitSelect.getAttribute('data-previous-unit') || unitSelect.value;
+                });
+            }
+
+            // Add unit change listeners
+            addUnitChangeListener(voltageInput, voltageUnit, 'voltage');
+            addUnitChangeListener(currentInput, currentUnit, 'current');
+            addUnitChangeListener(resistanceInput, resistanceUnit, 'resistance');
+            addUnitChangeListener(powerInput, powerUnit, 'power');
+
+            // Function to highlight inputs that need to be filled
+            function highlightEmptyInputs() {
+                const inputs = [voltageInput, currentInput, resistanceInput, powerInput];
+                const filledInputs = inputs.filter(input => input.value !== '');
+
+                if (filledInputs.length < 2) {
+                    inputs.forEach(input => {
+                        if (input.value === '') {
+                            input.classList.add('input-error');
+                            
+                            // Remove error highlight after 2 seconds
+                            setTimeout(() => {
+                                input.classList.remove('input-error');
+                            }, 100);
+                        }
+                    });
+                }
+            }
+
+            function calculateOhmsLaw() {
+                // Reset previous error
+                errorMessage.textContent = '';
+
+                // Function to convert a value with stored original data
+                function convertInputValue(input, unitSelect, type) {
+                    if (input.dataset.originalValue) {
+                        const originalValue = parseFloat(input.dataset.originalValue);
+                        const originalUnit = input.dataset.originalUnit;
+                        const newUnit = unitSelect.value;
+
+                        if (originalUnit !== newUnit) {
+                            const convertedValue = convertUnit(
+                                originalValue, 
+                                originalUnit, 
+                                newUnit, 
+                                type
+                            );
+                            input.value = convertedValue.toFixed(3);
+                        }
+
+                        // Clean up dataset
+                        delete input.dataset.originalValue;
+                        delete input.dataset.originalUnit;
+                    }
+                }
+
+                // Convert all inputs before calculation if they have original values
+                convertInputValue(voltageInput, voltageUnit, 'voltage');
+                convertInputValue(currentInput, currentUnit, 'current');
+                convertInputValue(resistanceInput, resistanceUnit, 'resistance');
+                convertInputValue(powerInput, powerUnit, 'power');
+
+                // Input fields
+                const inputs = [voltageInput, currentInput, resistanceInput, powerInput];
+                const filledInputs = inputs.filter(input => input.value !== '');
+
+                // Validate input - check if more than 2 inputs are filled
+                if (filledInputs.length > 2) {
+                    inputs.forEach(input => {
+                        input.classList.add('input-error');
+                        
+                        // Remove error highlight after 2 seconds
+                        setTimeout(() => {
+                            input.classList.remove('input-error');
+                        }, 100);
+                    });
+
+                    errorMessage.textContent = 'Please fill only two fields';
+                    return;
+                }
+
+                // Get input values and convert to base units (voltage = V, current = A, resistance = Ω, power = W)
+                const voltage = voltageInput.value ? 
+                    parseFloat(voltageInput.value) * unitConversions.voltage[voltageUnit.value] : null;
+                const current = currentInput.value ? 
+                    parseFloat(currentInput.value) * unitConversions.current[currentUnit.value] : null;
+                const resistance = resistanceInput.value ? 
+                    parseFloat(resistanceInput.value) * unitConversions.resistance[resistanceUnit.value] : null;
+                const power = powerInput.value ? 
+                    parseFloat(powerInput.value) * unitConversions.power[powerUnit.value] : null;
+
+                // Count filled inputs
+                const numFilledInputs = [voltage, current, resistance, power].filter(val => val !== null).length;
+
+                // Validate input
+                if (numFilledInputs < 2) {
+                    errorMessage.textContent = 'Please fill any two fields.';
+                    highlightEmptyInputs();
+                    return;
+                }
+
+                // Ohm's Law calculations
+                let calculatedVoltage = voltage, 
+                    calculatedCurrent = current, 
+                    calculatedResistance = resistance, 
+                    calculatedPower = power;
+
+                // Calculate missing values
+                if (voltage === null) {
+                    if (current !== null && resistance !== null) {
+                        calculatedVoltage = current * resistance;
+                    } else if (power !== null && current !== null) {
+                        calculatedVoltage = power / current;
+                    } else if (power !== null && resistance !== null) {
+                        calculatedVoltage = Math.sqrt(power * resistance);
+                    }
+                }
+
+                if (current === null) {
+                    if (voltage !== null && resistance !== null) {
+                        calculatedCurrent = voltage / resistance;
+                    } else if (power !== null && voltage !== null) {
+                        calculatedCurrent = power / voltage;
+                    }
+                }
+
+                if (resistance === null) {
+                    if (voltage !== null && current !== null) {
+                        calculatedResistance = voltage / current;
+                    } else if (power !== null && current !== null) {
+                        calculatedResistance = (power / (current * current));
+                    } else if (power !== null && voltage !== null) {
+                        calculatedResistance = (voltage * voltage) / power;
+                    }
+                }
+
+                if (power === null) {
+                    if (voltage !== null && current !== null) {
+                        calculatedPower = voltage * current;
+                    } else if (voltage !== null && resistance !== null) {
+                        calculatedPower = (voltage * voltage) / resistance;
+                    } else if (current !== null && resistance !== null) {
+                        calculatedPower = (current * current) * resistance;
+                    }
+                }
+
+                // Convert results back to selected units and format
+                voltageInput.value = formatNumber(convertUnit(calculatedVoltage, 'V', voltageUnit.value, 'voltage'));
+                currentInput.value = formatNumber(convertUnit(calculatedCurrent, 'A', currentUnit.value, 'current'));
+                resistanceInput.value = formatNumber(convertUnit(calculatedResistance, 'Ω', resistanceUnit.value, 'resistance'));
+                powerInput.value = formatNumber(convertUnit(calculatedPower, 'W', powerUnit.value, 'power'));
+
+                // Update result boxes
+                document.getElementById('voltage-result').textContent = `${voltageInput.value} ${voltageUnit.value}`;
+                document.getElementById('current-result').textContent = `${currentInput.value} ${currentUnit.value}`;
+                document.getElementById('resistance-result').textContent = `${resistanceInput.value} ${resistanceUnit.value}`;
+                document.getElementById('power-result').textContent = `${powerInput.value} ${powerUnit.value}`;
+            }
+
+            function resetCalculator() {
+                // Clear input fields
+                voltageInput.value = '';
+                currentInput.value = '';
+                resistanceInput.value = '';
+                powerInput.value = '';
+
+                // Remove error highlighting
+                [voltageInput, currentInput, resistanceInput, powerInput]
+                    .forEach(input => input.classList.remove('input-error'));
+
+                // Reset units to default
+                voltageUnit.selectedIndex = 0;
+                currentUnit.selectedIndex = 0;
+                resistanceUnit.selectedIndex = 0;
+                powerUnit.selectedIndex = 0;
+
+                // Clear error
+                errorMessage.textContent = '';
+
+                // Reset result boxes
+                document.getElementById('voltage-result').textContent = '-';
+                document.getElementById('current-result').textContent = '-';
+                document.getElementById('resistance-result').textContent = '-';
+                document.getElementById('power-result').textContent = '-';
+            }
+
+            // Add event listeners
+            calculateBtn.addEventListener('click', calculateOhmsLaw);
+            resetBtn.addEventListener('click', resetCalculator);
+        });
+    </script>
+</body>
+</html>

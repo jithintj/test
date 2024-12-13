@@ -1,0 +1,347 @@
+/* CSS Variables for Consistency */
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --button-bg: #007BFF;
+    --button-bg-hover: #0056b3;
+    --text-color: #333;
+    --card-hover-shadow: rgba(0, 0, 0, 0.2);
+    --card-transform: scale(1.00);
+    --card-transition: transform 0.5s, box-shadow 0.8s;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Header and Navigation */
+header {
+    background-color: var(--primary-color);
+    padding: 1rem;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-direction: row;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+/* Focus styles for accessibility */
+nav a:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Ohm's Law Container Layout */
+.ohms-law-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 2rem;
+    margin: 2rem 1rem;
+}
+
+/* Calculator Container */
+.calculator-container,
+.results-image-container {
+    flex: 1;
+    width: 45%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    margin-top: 2rem;
+    margin-left: 1rem;
+}
+
+.calculator-container:hover {
+    box-shadow: 0 6px 20px var(--card-hover-shadow);
+}
+
+/* Calculator Container Header */
+.calculator-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+/* Results Image Container Specific Styling */
+.results-image-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.ohms-law-diagram {
+    flex-grow: 1;
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.ohms-law-diagram img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Enhanced Result Boxes Positioning */
+.result-boxes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;  /* Allows clicking through result boxes */
+}
+
+.result-boxes .result-box {
+    position: absolute;
+    background-color: transparent;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    width: 120px;  /* Slightly wider for better readability */
+    height: 60px;  /* Slightly taller for better readability */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Specific Box Positioning */
+#voltage-result-box {
+    bottom: 32%;
+    left: 2%;
+}
+
+#current-result-box {
+    top: 1%;
+    right: 42%;
+}
+
+#resistance-result-box {
+    bottom: 38%;
+    right: 26%;
+}
+
+#power-result-box {
+    bottom: 38%;
+    right: 2%;
+}
+
+.result-box .result-label {
+    display: block;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 3px;
+    font-size: 1rem;
+}
+
+.result-box .result-value {
+    display: block;
+    color: black;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Input Styles */
+.input-group {
+    margin-bottom: 15px;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-group label {
+    width: 40%;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.input-group input,
+.input-group select {
+    width: 40%;  
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 5px;
+    transition: border-color 0.3s ease;
+    background-color: white;
+}
+
+/* New style for units */
+.input-group .units {
+    width: 20%;
+    color: var(--primary-color);
+    text-align: left;
+    margin-left: 10px;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* Error Message Styling */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+    min-height: 30px;  /* Ensures consistent height */
+    height: 30px;      /* Fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Highlight invalid inputs */
+.input-error {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+.input-error::placeholder {
+    color: red;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+/* Calculate Button */
+.calculate-btn,
+.reset-btn {
+    display: inline-block;
+    width: 35%;
+    padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.calculate-btn {
+    background-color: var(--button-bg);
+}
+
+.calculate-btn:hover {
+    background-color: var(--button-bg-hover);
+}
+
+/* Reset Button */
+.reset-btn {
+    background-color: var(--button-bg);
+}
+
+.reset-btn:hover {
+    background-color: var(--button-bg-hover);
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .ohms-law-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .calculator-container,
+    .results-image-container {
+        width: 100%;
+        margin-bottom: 1rem;
+        margin-left: 0;
+    }
+
+    .result-boxes .result-box {
+        width: 90px;
+        height: 50px;
+        padding: 5px;
+    }
+
+    .result-box .result-label {
+        font-size: 0.7rem;
+    }
+
+    .result-box .result-value {
+        font-size: 0.9rem;
+    }
+
+    .calculator-container {
+        padding: 20px;
+        margin: 0 10px;
+    }
+
+    .calculator-header {
+        font-size: 1.75rem;
+    }
+
+    .input-group input {
+        font-size: 14px;
+    }
+
+    .input-group .units {
+        font-size: 12px;
+    }
+
+    .error-message {
+        min-height: 20px;
+        height: 20px;
+    }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breadboard Tutorials</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header id="home">
+        <nav>
+            <ul>
+                <li><a href="#tutorials">Tutorials</a></li>
+                <li><a href="calculator.html">Calculators</a></li>
+                <li><a href="#contact">Contact</a></li>    
+            </ul>
+        </nav>
+    </header>
+ 
+    <main>
+        <section id="about">
+            <h2>About Jithin</h2>
+            <p>"I am passionate about sharing my knowledge of electronics and embedded systems through hands-on tutorials. I specialize in platforms like Arduino, PIC, AVR, and Raspberry Pi, and support projects involving CAD, 3D printing, PCB design, and hardware simulation. My mission is to make complex concepts more accessible by providing practical, real-world learning experiences. Whether you're just starting in electronics or looking to deepen your expertise, I'm here to guide you every step of the way."</p>
+        </section>
+
+        <section id="tutorials">
+            <h2>Electronics Tutorials</h2>
+            <div class="tutorial-grid">
+
+                <article class="tutorial-card">
+                    <a href="t1.html">
+                        <div class="img-container">
+                            <img src="images/Index/basic.png" alt="Introduction to Electronics Tutorial Image">
+                        </div>
+                        <h3>Introduction to Electronics</h3>
+                        <p>Discover the basics of electronics in this introductory guide.</p>
+                    </a>
+                </article>
+
+
+                <article class="tutorial-card">
+                    <a href="t2.html">
+                        <div class="img-container">
+                            <img src="images/Index/arduino_1.png" alt="Arduino - Beginner Tutorial Image">
+                        </div>
+                        <h3>Arduino - Beginner</h3>
+                        <p>Introduction to Arduino board for absolute beginners.</p>
+                    </a>
+                </article>
+
+                <article class="tutorial-card">
+                    <div class="img-container">
+                        <img src="images/Index/arduino_2.png" alt="Arduino - Sensors & LCD Tutorial Image">
+                    </div>
+                    <h3>Arduino - Sensors & LCD</h3>
+                    <p>Using Arduino to read various sensors & display data using LCD module.</p>
+                </article>
+
+                <article class="tutorial-card">
+                    <div class="img-container">
+                        <img src="images/Index/arduino_3.png" alt="Arduino - Actuators Tutorial Image">
+                    </div>
+                    <h3>Arduino - Actuators</h3>
+                    <p>Using Arduino for controlling DC motor, Stepper Motor, Servo Motor etc.</p>
+                </article>
+
+                <article class="tutorial-card">
+                    <div class="img-container">
+                        <img src="images/Index/arduino_4.png" alt="Arduino - Advanced Tutorial Image">
+                    </div>
+                    <h3>Arduino - Advanced</h3>
+                    <p>Learn how to use Interrupts and Timers, EEPROM, Communication Protocols.</p>
+                </article>              
+            </div>
+        </section>
+
+        <section id="cad-tutorials">
+            <h2>CAD Tutorials</h2>
+            <div class="tutorial-grid">
+
+                <article class="tutorial-card">
+                    <div class="img-container">
+                        <img src="images/Index/onshape_1.png" alt="Basics of Onshape Tutorial Image">
+                    </div>
+                    <h3>Onshape Basics</h3>
+                    <p>Learn Onshape interface, basic sketching, part design and exporting 3D models.</p>
+                </article>
+
+                <article class="tutorial-card">
+                    <div class="img-container">
+                        <img src="images/Index/onshape_2.png" alt="Mastering Onshape Tutorial Image">
+                    </div>
+                    <h3>Mastering Onshape</h3>
+                    <p>Learn advanced modeling, assemblies, mates and collaborative tools.</p>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Feel free to reach out to me:</p>
+            <ul>
+                <li><strong>Phone/WhatsApp:</strong> +91 735 629 9816</li>
+                <li><strong>Email:</strong> jithintj555@gmail.com</li>
+            </ul>
+        </section>
+        
+        <a href="#home" class="back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Breadboard Tutorials. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Get the Back to Top button and footer
+        const backToTopButton = document.querySelector('.back-to-top');
+        const footer = document.querySelector('footer');
+
+        // Set a safe distance from the footer where the Back to Top button should stop
+        const safeDistance = 10; // distance in pixels
+
+        // Function to toggle the button's visibility and position
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const footerPosition = footer.offsetTop;  // Get the position of the footer
+            const footerHeight = footer.offsetHeight; // Get the height of the footer
+            const windowHeight = window.innerHeight; // Get the height of the viewport
+
+            // Show the button when scrolled down past half of the page height
+            if (scrollPosition > (document.body.scrollHeight / 2)) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+
+            // If the user is near the footer, make the button stop before overlapping the footer
+            if (scrollPosition + windowHeight >= footerPosition) {
+                // Stop the button at a safe distance above the footer
+                backToTopButton.style.position = 'fixed';
+                backToTopButton.style.bottom = `${footerHeight + safeDistance}px`;
+            } else {
+                // Normal button behavior when not near the footer
+                backToTopButton.style.position = 'fixed';
+                backToTopButton.style.bottom = '20px';
+            }
+        });
+
+        // Initially hide the button
+        backToTopButton.style.display = 'none';
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculators</title>
+    <link rel="stylesheet" href="calc_styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header id="home">
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="sessions" class="section">
+            <h2>Calculators</h2>
+            <div class="calculator-grid">
+
+                <article class="calculator-card">
+                    <a href="c1.html">
+                        <h3>Ohm's Law</h3>
+                        <div class="img-container">
+                            <img src="images/Calc_index/c2.png" alt="Ohm's Law">
+                        </div>
+                        <div class="content-spacing">
+                            <ul>
+                                <li>Calculate the voltage, current, resistance & power in simple resistive circuits.</li>
+                            </ul>
+                        </div>
+                    </a>
+                </article>
+
+                <div class="calculator-card">
+                    <h3>Resistive Volatge Divider</h3>
+                    <div class="img-container">
+                        <img src="images/Calc_index/c1.png" alt="Resistive Volatge Divider">
+                    </div>
+                    <div class="content-spacing">
+                        <ul>
+                            <li>Calculate the voltage drop across resistors in a series circuit.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="calculator-card">
+                    <h3>LED - Current Limiting Resistor</h3>
+                    <div class="img-container">
+                        <img src="images/Calc_index/c3.png" alt="Resistors and Ohm's Law">
+                    </div>
+                    <div class="content-spacing">
+                        <ul>
+                            <li>Calculate the value of current limiting resistor for a LED</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2>Contact</h2>
+            <p>Feel free to reach out to me:</p>
+            <ul>
+                <li><strong>Phone/WhatsApp:</strong> +91 735 629 9816</li>
+                <li><strong>Email:</strong> jithintj555@gmail.com</li>
+            </ul>
+        </section>
+        
+        <a href="#home" class="back-to-top">
+            <i class="fas fa-arrow-up"></i>
+        </a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Breadboard Tutorials. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const backToTopButton = document.querySelector('.back-to-top');
+        const footer = document.querySelector('footer');
+        const safeDistance = 10;
+
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const footerPosition = footer.offsetTop;
+            const footerHeight = footer.offsetHeight;
+            const windowHeight = window.innerHeight;
+
+            if (scrollPosition > (document.body.scrollHeight / 2)) {
+                backToTopButton.style.display = 'block';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+
+            if (scrollPosition + windowHeight >= footerPosition) {
+                backToTopButton.style.position = 'fixed';
+                backToTopButton.style.bottom = `${footerHeight + safeDistance}px`;
+            } else {
+                backToTopButton.style.position = 'fixed';
+                backToTopButton.style.bottom = '20px';
+            }
+        });
+
+        backToTopButton.style.display = 'none';
+    </script>
+</body>
+</html>

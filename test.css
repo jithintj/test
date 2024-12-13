@@ -1,0 +1,223 @@
+/* CSS Variables for Consistency */
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --button-bg: #007BFF;
+    --button-bg-hover: #0056b3;
+    --text-color: #333;
+    --card-hover-shadow: rgba(0, 0, 0, 0.2);
+    --card-transform: scale(1.02);
+    --card-transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* Header and Navigation */
+header {
+    background-color: var(--primary-color);
+    padding: 1rem;
+}
+
+section {
+    margin-bottom: 3rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-direction: row;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+/* Focus styles for accessibility */
+nav a:focus-visible {
+    outline: 3px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Calculator Container */
+.calculator-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 30px;
+    max-width: 30%;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    transition: var(--card-transition);
+}
+
+.calculator-container:hover {
+    transform: var(--card-transform);
+    box-shadow: 0 6px 15px var(--card-hover-shadow);
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+/* Input Styles */
+.input-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.input-group label {
+    width: 40%;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.input-group input,
+.input-group select {
+    width: 40%;  
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 5px;
+    transition: border-color 0.3s ease;
+    background-color: white;
+}
+
+/* New style for units */
+.input-group .units {
+    width: 20%;
+    color: var(--primary-color);
+    text-align: left;
+    margin-left: 10px;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+/* Highlight invalid inputs */
+.input-error {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+/* Calculate Button */
+.calculate-btn,
+.reset-btn {
+    display: inline-block;
+    width: 35%;
+    padding: 12px;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.calculate-btn {
+    background-color: var(--button-bg);
+}
+
+.calculate-btn:hover {
+    background-color: var(--button-bg-hover);
+}
+
+/* Reset Button */
+.reset-btn {
+    background-color: var(--button-bg);
+}
+
+.reset-btn:hover {
+    background-color: var(--button-bg-hover);
+}
+
+/* Error Message Styling */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.input-error {
+    background-color: #ffdddd !important;
+    outline: 2px solid red !important;
+    outline-offset: -2px;  /* Keeps the outline inside the element */
+    transition: background-color 0.5s ease;
+}
+
+.input-error::placeholder {
+    color: red;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .calculator-container {
+        padding: 20px;
+        margin: 0 10px;
+    }
+
+    .calculator-header {
+        font-size: 1.75rem;
+    }
+
+    .input-group input {
+        font-size: 14px;
+    }
+
+    .input-group .units {
+        font-size: 12px;
+    }
+}

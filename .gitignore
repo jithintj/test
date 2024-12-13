@@ -1,0 +1,18 @@
+# VSCode settings
+.vscode/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Potential local configuration or secret files
+*.env
+*.local
+
+# Dependency directories (not applicable here, but good to include)
+node_modules/
+
+# Backup or temporary files
+*.bak
+*.tmp
+*.swp
